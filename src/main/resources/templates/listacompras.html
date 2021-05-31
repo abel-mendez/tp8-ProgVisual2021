@@ -17,14 +17,14 @@
 				<div class="container bg-danger text-white p-2 mt-3 text-center">
 					<h5>Filtrar Busqueda</h5>
 				</div>
-				<form class="text-white" >
+				<form th:action="@{/compra/filtrar}" class="text-white" method="get">
 				  <div class="mb-3">
-				    <label for="nombre" class="form-label">Nombre del producto</label>
-				    <input type="text" class="form-control" id="nombre" placeholder="Nombre del Producto">
+				    <label for="filtroproducto" class="form-label">Nombre del producto</label>
+				    <input type="text" class="form-control" id="filtroproducto" placeholder="Nombre del Producto" th:value="${filtroproducto}" name="filtroproducto"/>
 				  </div>
 				  <div class="mb-3">
-				    <label for="monto" class="form-label">Monto</label>
-				    <input type="text" placeholder="Monto Superior a . . ." class="form-control" id="monto">
+				    <label for="filtrototal" class="form-label">Monto</label>
+				    <input type="number" placeholder="Monto Superior a . . ." class="form-control" id="filtrototal" th:value="${filtrototal}" name="filtrototal"/>
 				  </div>
 				  <button type="submit" class="btn btn-success">Filtrar</button>
 				</form>

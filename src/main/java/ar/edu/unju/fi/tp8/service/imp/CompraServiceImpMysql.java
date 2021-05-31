@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.tp8.service.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,20 @@ public class CompraServiceImpMysql implements ICompraService{
 	public void deleteCompraById(Long id) {
 		// TODO Auto-generated method stub
 		compraRepo.deleteById(id);
+	}
+
+	@Override
+	public List<Compra> buscarCompra(String nombre,double total) {
+		// TODO Auto-generated method stub
+		List<Compra> compra=new ArrayList<Compra>();
+		if (!nombre.isEmpty()&&total>=0) {
+			compra= compraRepo.findByProductoNombreAndTotalGreaterThanEqual(nombre, total);
+		} else {if (nombre.isEmpty()&&total>=0) {
+					compra=compraRepo.findByTotalGreaterThanEqual(total);
+				}
+
+		}
+		return compra;
 	}
 
 
