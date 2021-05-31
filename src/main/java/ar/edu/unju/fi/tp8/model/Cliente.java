@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -31,24 +33,27 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="cli_Id")
 	private Long id;
+	
+	@Min(value=100000,message = "Debe Contener al Menos 6 caracteres")
 	@Column(name = "cli_DNI")
 	private int nroDocumento;
+	
 	@Column(name = "cli_TipoDoc")
 	private String tipoDocumento;
 	
 	@NotBlank(message = "Esta Campo no puede estar vacio")
-	//@Size(min = 10,max = 50,message ="debe de contener 10 a 50 caracteres" )
+	@Size(min = 10,max = 50,message ="Debe contener de  10 a 50 caracteres" )
 	@Column(name = "cli_NombreApeLLido")
 	private String nombreApellido;
 	
-	//@NotBlank(message = "Esta Campo no puede estar vacio")
-	//@Size(min = 10,max = 50,message ="debe de contener 10 a 50 caracteres" )
-	//@Email(message = "debe ser un formate de email valido")
+	@NotBlank(message = "Esta Campo no puede estar vacio")
+	@Size(min = 10,max = 50,message ="debe de contener 10 a 50 caracteres" )
+	@Email(message = "debe ser un formate de email valido")
 	@Column(name = "cli_Email")
 	private String email;
 	
-	//@NotBlank(message = "Esta Campo no puede estar vacio")
-	//@Size(min = 8,max = 50,message ="debe de contener 8 a 50 caracteres" )
+	@NotBlank(message = "Esta Campo no puede estar vacio")
+	@Size(min = 8,max = 50,message ="debe de contener 8 a 50 caracteres" )
 	@Column(name = "cli_Password")
 	private String password;
 	
@@ -59,9 +64,11 @@ public class Cliente {
 	@Column(name = "cli_Edad")
 	private int edad;
 	
+	@Min(value=10,message = "Debe Contener al Menos 2 caracteres")
 	@Column(name = "cli_CodigoATel")
 	private int codigoAreaTelefono;
 	
+	@Min(value=100000,message = "Debe Contener al Menos 6 caracteres")
 	@Column(name = "cli_Telefono")
 	private int nroTelefono;
 	
