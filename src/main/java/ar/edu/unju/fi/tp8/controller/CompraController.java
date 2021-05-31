@@ -1,7 +1,5 @@
 package ar.edu.unju.fi.tp8.controller;
 
-import java.util.Optional;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.tp8.model.Compra;
-import ar.edu.unju.fi.tp8.model.Producto;
 import ar.edu.unju.fi.tp8.service.ICompraService;
 import ar.edu.unju.fi.tp8.service.IProductoService;
 
@@ -64,6 +61,8 @@ public class CompraController {
 		if (compraService.obtenerCompras().isEmpty()) {
 			compraService.generarTablaCompra();
 		}
+		modelView.addObject("filtroproducto","");
+		modelView.addObject("filtrototal","");
 		modelView.addObject("compras",compraService.obtenerCompras());
 		LOGGER.info("RESULT : VISUALIZA LA PAGINA listacompras.html");
 		return modelView;
@@ -84,6 +83,19 @@ public class CompraController {
 		modelView.addObject("compra", compra);
 		modelView.addObject("producto",productoService.getAllProductos());
 		return modelView;
+	}
+	@GetMapping("/compra/filtrar")
+	public String findCompraByFiltro(Model model,@RequestParam(name="filtroproducto") String filtroproducto,
+			@RequestParam(name="filtrototal") Double filtrototal) {
+			//@ModelAttribute(name="compra")Compra compra
+			
+		//model.addAttribute("compra", compraService.getCompra());
+//		model.addAttribute("filtroproducto","");
+//		model.addAttribute("filtrototal","");
+		System.out.println("Filtro Producto=> "+filtroproducto);
+		System.out.println("Filtro Total=> "+filtrototal);
+		model.addAttribute("compras", compraService.buscarCompra(filtroproducto, filtrototal));
+		return "listacompras";
 	}
 	
 }
