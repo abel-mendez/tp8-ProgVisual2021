@@ -2,12 +2,15 @@ package ar.edu.unju.fi.tp8.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,17 +42,24 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/cliente/guardar")
-	public ModelAndView guardarCliente(@ModelAttribute("cliente") Cliente uncliente) {
+	public ModelAndView guardarCliente(@Valid @ModelAttribute("cliente") Cliente uncliente, BindingResult result) {
 		LOGGER.info("CONTROLLER : ClienteController with / cliente/guardar post method");
 		LOGGER.info("METHOD : guardarCliente()");
 		LOGGER.info("RESULT : VISUALIZA LA PAGINA clientes.html");
-		//vista
-		ModelAndView modelView = new ModelAndView("clientes");
-		clienteService.guardarCliente(uncliente);
-		//en la vista clientes  se obtiene todos los clientes
-		modelView.addObject("clientes",clienteService.getAllClientes());
 		
-		return modelView;
+		if(result.hasErrors()) {
+			ModelAndView model=new ModelAndView("nuevocliente");
+			model.addObject("cliente", uncliente);
+			return model;
+		}else {
+			//vista
+			ModelAndView modelView = new ModelAndView("clientes");
+			clienteService.guardarCliente(uncliente);
+			//en la vista clientes  se obtiene todos los clientes
+			modelView.addObject("clientes",clienteService.getAllClientes());
+			
+			return modelView;
+		}
 	}
 	
 	

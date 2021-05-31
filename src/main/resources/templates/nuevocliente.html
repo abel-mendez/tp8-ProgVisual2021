@@ -24,9 +24,10 @@
 					         <form  th:action="@{/cliente/guardar}" th:object="${cliente}" method="post">
 					         <input type="hidden" th:field="*{id}"/>
 								<div class="form-group">
-							 	<label for="nombreApellido">Apellido y Nombre</label>
-								<input required class="form-control" type="text" id="nombreApellido" placeholder="Ingrese el apellido y nombre"
-								th:field="*{nombreApellido}">
+								 	<label for="nombreApellido">Apellido y Nombre</label>
+									<input class="form-control" type="text" id="nombreApellido" placeholder="Ingrese el apellido y nombre"
+									th:field="*{nombreApellido}">
+									<div class=" alert alert-danger" th:if="${#fields.hasErrors('nombreApellido')}" th:errors="*{nombreApellido}" ></div>
 								</div>
 								<div class="form-group">
 								<label for="tipoDocumento">Tipo de Documento</label>
@@ -40,16 +41,19 @@
 								<label for="nroDocumento">Numero de Dni</label>
 								<input required class="form-control" type="number" id="nroDocumento" placeholder="Ingrese el numero de dni"
 								th:field="*{nroDocumento}">
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('nroDocumento')}" th:errors="*{nroDocumento}" ></div>
 								</div>
 								<div class="form-group">
 							        <label for="email">Email</label>
 								<input required class="form-control" type="email" id="email" placeholder="Ingrese el email"
 								th:field="*{email}">
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
 								</div>
 								<div class="form-group">
 								<label for="password">Contraseña</label>
-								<input class="form-control" type="text" id="password" placeholder="Ingrese password"
+								<input class="form-control" type="password" id="password" placeholder="Ingrese password"
 								th:field="*{password}"/>
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
 								</div>
 								<div class="form-group">
 								<label for="fechaNacimiento">Fecha de nacimiento</label>
@@ -59,11 +63,14 @@
 								<label for="codigoAreaTelefono">Codigo de Area</label>
 								<input required class="form-control" type="number" id="codigoAreaTelefono" placeholder="Ingrese el codigo de area"
 								th:field="*{codigoAreaTelefono}"/>
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('codigoAreaTelefono')}" th:errors="*{codigoAreaTelefono}" ></div>
 								</div>
 								<div class="form-group">
 								<label for="nroTelefono">Numero de telefono</label>
 								<input required class="form-control" type="number" id="nroTelefono" placeholder="Ingrese el numero de telefono"
 								th:field="*{nroTelefono}"/>
+								
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('nroTelefono')}" th:errors="*{nroTelefono}" ></div>
 								</div>
 								<div class="form-group">
 								<label for="fechaUltimaCompra">Fecha de ultima compra</label>
