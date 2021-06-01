@@ -3,10 +3,13 @@ package ar.edu.unju.fi.tp8.controller;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,20 +44,28 @@ public class CuentaController {
 //		return modelView;
 //	}
 	@GetMapping("/cuenta/guardar")
-	public String guardarCuenta(Model model, @RequestParam(name="id") String id,
+	public String guardarCuenta(@Valid Model model, @RequestParam(name="id") String id,
 			@RequestParam(name="saldo") Double saldo,
 			@RequestParam(name="fechaCreacion") String fechaCreacion,
 			@RequestParam(name="estado") String estado,
-			@RequestParam(name="cliente") Long cliente) {
+			@RequestParam(name="cliente") Long cliente, BindingResult result) {
 		Cuenta cu= new Cuenta();
 		cu.setSaldo(saldo);
 		cu.setFechaCreacion(LocalDate.parse(fechaCreacion));
 		cu.setEstado(estado);
 		cu.setCliente(clienteService.getClienteById(cliente).get());
-		cuentaService.guardarCuenta(cu);
-		model.addAttribute("cuentas",cuentaService.getAllCuentas() );
+		if (result.hasErrors()) {
+			
+			model.addAttribute("cuenta",cu);
+			model.addAttribute("clientes", clienteService.getAllClientes());
+			return "nueva-cuenta";
+		}else {
+			cuentaService.guardarCuenta(cu);
+			model.addAttribute("cuentas",cuentaService.getAllCuentas() );
+			return "lista-cuenta";
+			
+		}
 		
-		return "lista-cuenta";
 	}
 	
 	@GetMapping("/cuenta/lista")

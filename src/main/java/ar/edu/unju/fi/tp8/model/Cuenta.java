@@ -12,10 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name="CUENTAS")
 @Component("unaCuenta")
@@ -24,17 +30,27 @@ public class Cuenta {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="cue_Id")
 	private Long id;
+	
+	
+	@DecimalMin(value="0.00",message="Saldo minimo es 0")
+	@DecimalMax(value="999999.00",message="Saldo maximo superado")
 	@Column(name="cue_Saldo")
 	private Double saldo;
+	
+	@NotNull(message="El campo fecha no debe estar vacio")
 	@Column(name="cue_FechaCreacion")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaCreacion;
+	
+	@NotBlank(message="El campo estado debe seleccionar un estado")
 	@Column(name="cue_Estado")
 	private String estado;
 	
 //	@Autowired
 //	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true )
 //	@JoinColumn(name="cli_Id")
+	
+	@Valid
 	@OneToOne(mappedBy = "cuenta", fetch = FetchType.LAZY)
 	private Cliente cliente;
 	
