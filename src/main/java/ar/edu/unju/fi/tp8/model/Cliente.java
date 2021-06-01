@@ -20,6 +20,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class Cliente {
 	@Column(name = "cli_Password")
 	private String password;
 	
+	@NotNull(message = "Debe seleccionar una fecha")
 	@Column(name = "cli_FechaNacimiento")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNacimiento;
@@ -71,7 +73,7 @@ public class Cliente {
 	@Min(value=100000,message = "Debe Contener al Menos 6 caracteres")
 	@Column(name = "cli_Telefono")
 	private int nroTelefono;
-	
+	@NotNull(message = "Debe seleccionar una fecha")
 	@Column(name = "cli_FechaUComp")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaUltimaCompra;
