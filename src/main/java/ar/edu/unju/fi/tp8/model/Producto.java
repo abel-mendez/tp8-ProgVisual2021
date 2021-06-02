@@ -4,6 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -13,13 +18,25 @@ import org.springframework.stereotype.Component;
 public class Producto {
 	@Id
 	@Column(name="PRO_CODIGO")
+	@NotBlank(message="El codigo del producto no debe estar vacio")
+	@Min(value=0,message="El codigo debe ser de 4 digitos")
 	 private int codigo;
+	
+	@NotBlank(message="El campo nombre no puede estar vacio")
 	@Column(name="PRO_NOMBRE")
+	@Size(min=4,max=120,message="El nombre debe ser mayor a 4 digitos y menor a 120 digitos")
 	 private String nombre;
+	
+	@DecimalMin(value="10.00",message="Precio minimo es $10.00")
+	@DecimalMax(value="999999.00",message="Precio maximo superado")	
 	@Column(name="PRO_PRECIO")
 	 private Double precio;
+	
+	@NotBlank(message="Debe ingresar la marca del producto")
 	@Column(name="PRO_MARCA")
 	 private String marca;
+	
+	@Min(value=0)
 	@Column(name="PRO_STOCK")
 	 private int stock;
 	 
