@@ -36,6 +36,7 @@ public class CuentaController {
 		model.addAttribute("clientes", clienteService.getAllClientes());
 		return"nueva-cuenta";
 	}
+	
 //	@PostMapping("/cuenta/guardar")
 //	public ModelAndView guardarCuenta(@ModelAttribute("cuenta")Cuenta cuenta) {
 //		ModelAndView modelView= new ModelAndView("lista-cuenta");
@@ -43,6 +44,7 @@ public class CuentaController {
 //		modelView.addObject("cuentas", cuentaService.getAllCuentas());
 //		return modelView;
 //	}
+	
 	@GetMapping("/cuenta/guardar")
 	public String guardarCuenta(@Valid Model model, @RequestParam(name="id") String id,
 			@RequestParam(name="saldo") Double saldo,
