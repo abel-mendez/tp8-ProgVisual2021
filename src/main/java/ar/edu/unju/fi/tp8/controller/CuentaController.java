@@ -46,27 +46,22 @@ public class CuentaController {
 //	}
 	
 	@GetMapping("/cuenta/guardar")
-	public String guardarCuenta(@Valid Model model, @RequestParam(name="id") String id,
+	public String guardarCuenta( Model model, @RequestParam(name="id") String id,
 			@RequestParam(name="saldo") Double saldo,
 			@RequestParam(name="fechaCreacion") String fechaCreacion,
 			@RequestParam(name="estado") String estado,
-			@RequestParam(name="cliente") Long cliente, BindingResult result) {
+			@RequestParam(name="cliente") Long cliente) {
 		Cuenta cu= new Cuenta();
 		cu.setSaldo(saldo);
 		cu.setFechaCreacion(LocalDate.parse(fechaCreacion));
 		cu.setEstado(estado);
 		cu.setCliente(clienteService.getClienteById(cliente).get());
-		if (result.hasErrors()) {
-			
-			model.addAttribute("cuenta",cu);
-			model.addAttribute("clientes", clienteService.getAllClientes());
-			return "nueva-cuenta";
-		}else {
-			cuentaService.guardarCuenta(cu);
-			model.addAttribute("cuentas",cuentaService.getAllCuentas() );
-			return "lista-cuenta";
-			
-		}
+		
+		cuentaService.guardarCuenta(cu);
+		model.addAttribute("cuentas",cuentaService.getAllCuentas() );
+		
+		return "lista-cuenta";
+
 		
 	}
 	

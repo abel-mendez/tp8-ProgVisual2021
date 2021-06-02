@@ -13,8 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -32,8 +32,7 @@ public class Cuenta {
 	private Long id;
 	
 	
-	@DecimalMin(value="0.00",message="Saldo minimo es 0")
-	@DecimalMax(value="999999.00",message="Saldo maximo superado")
+	@Min(value=10,message="Saldo minimo es 0")
 	@Column(name="cue_Saldo")
 	private Double saldo;
 	

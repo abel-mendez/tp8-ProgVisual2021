@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,17 +33,17 @@ public class CompraController {
 	private static final Log LOGGER = LogFactory.getLog(CompraController.class);
 
 	@GetMapping("/compra/guardar")
-	public String getAddCompraGuardarPage(@Valid Model model,@RequestParam(name="cantidad")String cantidad,
+	public String getAddCompraGuardarPage(@Valid @ModelAttribute("compra") Compra unaCompra,BindingResult result, Model model,@RequestParam(name="cantidad")String cantidad,
 			@RequestParam(name="id")String id,
-			@RequestParam(name="codigo")String codigo,BindingResult result) {
+			@RequestParam(name="codigo")String codigo) {
 		Compra comp = new Compra();
 		comp.setId(Long.valueOf(id));
 		comp.setCantidad(Integer.valueOf(cantidad));
 		comp.setProducto( this.productoService.getUnProducto(Integer.valueOf(codigo)).get());
 		comp.setTotal(comp.getTotal());
-		
+		unaCompra=comp;
 		if(result.hasErrors()) {
-			model.addAttribute("compra",comp);
+			model.addAttribute("compra",unaCompra);
 			model.addAttribute("producto",productoService.getAllProductos());
 			return "compra";
 		}else {
