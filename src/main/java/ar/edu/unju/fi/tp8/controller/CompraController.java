@@ -41,7 +41,6 @@ public class CompraController {
 		comp.setCantidad(Integer.valueOf(cantidad));
 		comp.setProducto( this.productoService.getUnProducto(Integer.valueOf(codigo)).get());
 		comp.setTotal(comp.getTotal());
-		unaCompra=comp;
 		if(result.hasErrors()) {
 			model.addAttribute("compra",unaCompra);
 			model.addAttribute("producto",productoService.getAllProductos());

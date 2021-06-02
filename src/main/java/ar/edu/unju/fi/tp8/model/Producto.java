@@ -18,13 +18,11 @@ import org.springframework.stereotype.Component;
 public class Producto {
 	@Id
 	@Column(name="PRO_CODIGO")
-	
-	@Min(value=0,message="El codigo debe ser de 4 digitos")
 	 private int codigo;
 	
 	@NotBlank(message="El campo nombre no puede estar vacio")
 	@Column(name="PRO_NOMBRE")
-	@Size(min=4,max=120,message="El nombre debe ser mayor a 4 digitos y menor a 120 digitos")
+	@Size(min=4,max=50,message="El nombre debe ser mayor a 4 caracteres y menor a 50 caracteres")
 	 private String nombre;
 	
 	@DecimalMin(value="10.00",message="Precio minimo es $10.00")
@@ -32,6 +30,7 @@ public class Producto {
 	@Column(name="PRO_PRECIO")
 	 private Double precio;
 	
+	@Size(min=4,max=50,message="El nombre debe ser mayor a 4 caracteres y menor a 50 caracteres")
 	@NotBlank(message="Debe ingresar la marca del producto")
 	@Column(name="PRO_MARCA")
 	 private String marca;
