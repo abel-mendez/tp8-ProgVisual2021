@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class Producto {
 	@Id
 	@Column(name="PRO_CODIGO")
-	@NotBlank(message="El codigo del producto no debe estar vacio")
+	
 	@Min(value=0,message="El codigo debe ser de 4 digitos")
 	 private int codigo;
 	
@@ -36,7 +36,7 @@ public class Producto {
 	@Column(name="PRO_MARCA")
 	 private String marca;
 	
-	@Min(value=0)
+	@Min(value=1)
 	@Column(name="PRO_STOCK")
 	 private int stock;
 	 
