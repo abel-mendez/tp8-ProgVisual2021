@@ -1,11 +1,18 @@
 package ar.edu.unju.fi.tp8.controller;
 
+
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,19 +35,26 @@ public class CompraController {
 	private static final Log LOGGER = LogFactory.getLog(CompraController.class);
 
 	@GetMapping("/compra/guardar")
-	public String getAddCompraGuardarPage(Model model,@RequestParam(name="cantidad")String cantidad,
+	public String getAddCompraGuardarPage(@Valid Model model,@RequestParam(name="cantidad")String cantidad,
 			@RequestParam(name="id")String id,
-			@RequestParam(name="codigo")String codigo) {
+			@RequestParam(name="codigo")String codigo,BindingResult result) {
 		Compra comp = new Compra();
 		comp.setId(Long.valueOf(id));
 		comp.setCantidad(Integer.valueOf(cantidad));
 		comp.setProducto( this.productoService.getUnProducto(Integer.valueOf(codigo)).get());
 		comp.setTotal(comp.getTotal());
-		LOGGER.info("CONTROLLER : CompraController with /guardarCompra post method");
-		compraService.guardarCompra(comp);
-		model.addAttribute("compras",compraService.getCompra());
-		LOGGER.info("RESULT : VISUALIZA LA PAGINA resultadoCompra.html ");
-		return "resultadoCompra";
+		
+		if(result.hasErrors()) {
+			model.addAttribute("compra",comp);
+			model.addAttribute("producto",productoService.getAllProductos());
+			return "compra";
+		}else {
+			LOGGER.info("CONTROLLER : CompraController with /guardarCompra post method");
+			compraService.guardarCompra(comp);
+			model.addAttribute("compras",compraService.getCompra());
+			LOGGER.info("RESULT : VISUALIZA LA PAGINA resultadoCompra.html ");
+			return "resultadoCompra";
+		}
 	}
 	
 	@GetMapping("/compra")

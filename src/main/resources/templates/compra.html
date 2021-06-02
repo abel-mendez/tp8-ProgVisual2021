@@ -38,6 +38,7 @@
 							    <label for="cantidad">Cantidad</label>
 								<input required th:field="*{cantidad}" id="cantidad" class="form-control" type="number" name="cantidad" placeholder="Ingrese cantidad"
 								>
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></div>
 							   </div>
 							   
 							   <button class="btn btn-danger btn-block" type="submit" >Guardar</button>
