@@ -29,7 +29,7 @@
 							   </div>
 							   <div class="form-group">
 							    <label for="codigo">Codigo</label>
-							   <select name="codigo" id="codigo" class="form-select" aria-label="Default select example">
+							   <select name="codigo" id="codigo" class="form-control" aria-label="Default select example">
 								  <option th:each="p: ${producto}" th:value="${p.codigo}" ><span th:text="${p.nombre}" ></span></option>
 								  
 								</select>

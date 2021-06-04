@@ -73,7 +73,7 @@ public class CompraController {
 			compraService.generarTablaCompra();
 		}
 		modelView.addObject("filtroproducto","");
-		modelView.addObject("filtrototal","");
+		modelView.addObject("filtrototal",0);
 		modelView.addObject("compras",compraService.obtenerCompras());
 		LOGGER.info("RESULT : VISUALIZA LA PAGINA listacompras.html");
 		return modelView;
@@ -101,8 +101,8 @@ public class CompraController {
 			//@ModelAttribute(name="compra")Compra compra
 			
 		//model.addAttribute("compra", compraService.getCompra());
-//		model.addAttribute("filtroproducto","");
-//		model.addAttribute("filtrototal","");
+		model.addAttribute("filtroproducto",filtroproducto);
+		model.addAttribute("filtrototal",filtrototal);
 		System.out.println("Filtro Producto=> "+filtroproducto);
 		System.out.println("Filtro Total=> "+filtrototal);
 		model.addAttribute("compras", compraService.buscarCompra(filtroproducto, filtrototal));
